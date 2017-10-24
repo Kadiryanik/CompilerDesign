@@ -1,0 +1,46 @@
+options{
+DEBUG_PARSER = true;
+}
+PARSER_BEGIN(Lexer)
+public class Lexer {
+	public static void main(String args[]) throws ParseException{
+		new Lexer(System.in).Start();
+		System.out.println("success");
+	}
+}
+PARSER_END(Lexer)
+TOKEN : {
+	< PLUS: "+" >
+|	< MINUS: "-" >
+|	< TIMES: "*" >
+|	< DIVIDE: "/" >
+|	< MOD: "%" >
+|	< POWER: "^" >
+|	< ASSIGN: "=" >
+|	< LPAREN: "(" >
+|	< RPAREN: ")" >
+|	< F: "f" >
+|	< X: "x" >	
+|	< #DIGIT: ["0" - "9"] >
+|	< NUM: (<DIGIT>)+ >
+}
+
+SKIP: {
+< "--" (~["\n", "\r"])* ("\n" | "\r" | "\r\n") >
+| " "
+| "\t"
+| "\n"
+| "\r"
+}
+/*
+void Start() :
+{}
+{ (<PLUS> | <MINUS> | <TIMES> | <DIVIDE> | <MOD> | <POWER> | <ASSIGN> | <LPAREN> | <RPAREN> | <F> | <X> | <NUM>)* }
+*/
+
+void Start() :
+{ int n=0; }
+{ (<PLUS> | <MINUS> | <TIMES> | <DIVIDE> | <MOD> | <POWER> | <ASSIGN> | <LPAREN> {n++;}| <RPAREN> | <F> | <X> | <NUM>)*
+
+{System.out.println("n = " + n);}
+}

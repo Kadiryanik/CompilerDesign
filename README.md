@@ -1,7 +1,14 @@
 # CompilerDesign
 
-### Compile and run
+### Purpose
 
-	- javacc lang.jj
-	- javac *.java
-	- java Lexer < func.txt
+	Solve the equation in prog.txt
+
+### Compile And Run
+
+	- make
+	- make run
+
+### Clean Unnecessary Files
+
+	- make clean

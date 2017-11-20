@@ -1,13 +1,8 @@
 options {
-DEBUG_PARSER = true; // Set to false to turn off token printing
+DEBUG_PARSER = false; // Set to false to turn off token printing
 }
 PARSER_BEGIN(Parser)
 class Parser{
-	public static void main(String args[]) throws ParseException{
-		EqList el = new Parser(System.in).Parser();
-		int a = new TypeVisitor(new Table()).visit(el);
-		System.out.println("Parse " + ((a != 0) ? "Failed!" : "Succeed!"));
-	}
 }
 PARSER_END(Parser)
 TOKEN : {
@@ -21,8 +16,8 @@ TOKEN : {
 	| < LPAREN: "(" >
 	| < RPAREN: ")" >
 	| < #LETTER: ["a" - "z"] >
-	| < ID: <LETTER>(<LETTER>|<NUM>)* >
 	| < #DIGIT: ["0"-"9"] >
+	| < ID: <LETTER>(<LETTER>|<DIGIT>)* >
 	| < NUM: (<DIGIT>)+ >
 }
 
@@ -67,7 +62,6 @@ Exp E():
 {
 	(<PLUS> | <MINUS> {t = "-1"; })? e1=T() { e1 = new TimesExp(new NumExp(t), e1); }
 	(
-
 		<PLUS> e2=T() { e1 = new PlusExp(e1, e2); }
 		| <MINUS> e2=T() { e1 = new MinusExp(e1, e2); }
 	)*

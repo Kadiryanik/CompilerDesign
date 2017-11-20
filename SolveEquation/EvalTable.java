@@ -1,9 +1,8 @@
 import java.util.*;
 
-class Table {
+class EvalTable {
 	Hashtable table[] = new Hashtable[1000];
 	int index = -1;
-
 	public void beginScope() {
 		table[++index] = new Hashtable();
 	}
@@ -12,18 +11,11 @@ class Table {
 		index--;
 	}
 
-	public void put(String id, int value) {
+	public void put(String id, int value) {	
 		table[index].put(id, new Integer(value));
 	}
 
 	public int get(String id){
 		return ((Integer)table[index].get(id)).intValue();
-	}
-
-	public boolean contains(String id, int value) {
-		if (table[index].containsKey(id)){
-			return get(id) == value;
-		}
-		return false;
 	}
 }

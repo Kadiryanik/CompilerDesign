@@ -1,7 +1,13 @@
 public class TypeVisitor implements Visitor {
-	Table t;
-
-	public TypeVisitor(Table t) {
+	SymTable t;
+/*
+	public static void main(String args[]) throws ParseException{
+		EqList el = new Parser(System.in).Parser();
+		int a = new TypeVisitor(new SymTable()).visit(el);
+		System.out.println("Parse " + ((a != 0) ? "Failed!" : "Succeed!"));
+	}
+*/
+	public TypeVisitor(SymTable t) {
 		this.t = t;
 	}
 
@@ -31,8 +37,7 @@ public class TypeVisitor implements Visitor {
 		return a + b;
 	}
 	public int visit(Exp e){
-		e.accept(this);
-		return 0;
+		return e.accept(this);
 	}
 	public int visit(IdExp e){
 		if(t.contains(e.id, 0)){ // 0: variables
